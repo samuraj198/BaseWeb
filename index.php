@@ -22,28 +22,34 @@ include 'layout.php';
 $layout = ob_get_clean();
 
 
-if (preg_match('#/#', $url, $params)) {
+if ($url === '/') {
     $page = require 'main.php';
 
     $layout = str_replace("{{ title }}", 'Main Page', $layout);
 }
 
-if (preg_match('#/auth#', $url, $params)) {
+if ($url === '/auth') {
     $page = require 'auth.php';
 
     $layout = str_replace("{{ title }}", 'Auth', $layout);
 }
 
-if (preg_match('#/register#', $url, $params)) {
+if ($url === '/register') {
     $page = require 'register.php';
 
     $layout = str_replace("{{ title }}", 'Register', $layout);
 }
 
-if (preg_match('#/logout#', $url, $params)) {
+if ($url === '/logout') {
     $page = require 'logout.php';
 
     $layout = str_replace("{{ title }}", 'Log out', $layout);
+}
+
+if (!isset($page)) {
+    $page = require '404.php';
+
+    $layout = str_replace("{{ title }}", 'Page Not Found', $layout);
 }
 
 $layout = str_replace("{{ content }}", $page, $layout);

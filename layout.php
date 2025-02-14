@@ -23,10 +23,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
+                <?php
+                if (empty($_SESSION['auth'])) {?>
                 <li class="nav-item d-flex">
                     <a class="nav-link" href="/auth">Auth</a>
                     <a class="nav-link" href="/register">Register</a>
                 </li>
+                <?php } ?>
                 <?php
                 if (!empty($_SESSION['auth'])) {?>
                 <li class="nav-item dropdown">

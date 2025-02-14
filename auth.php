@@ -9,6 +9,10 @@ if (isset($_POST['email'])) {
         $_SESSION['auth'] = true;
         header('Location: /');
         exit;
+    } else {
+        $_SESSION['authError'] = "Email or password is incorrect";
+        header('Location: /auth');
+        exit;
     }
 }
 
@@ -25,6 +29,10 @@ $text .=
         </div>
         <div class=''>
             <button class='btn btn-primary' type='submit'>Auth</button>
-        </div>
-    </form>";
+        </div>";
+        if (isset($_SESSION['authError'])) {
+            $text .= "<p class='mt-3 text-danger'>$_SESSION[authError]</p>";
+            unset($_SESSION['authError']);
+        }
+    $text .= "</form>";
 return $text;
