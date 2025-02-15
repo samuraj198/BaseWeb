@@ -95,4 +95,5 @@ $text .=
             <button class='btn btn-primary' type='submit'>Register</button>
         </div>
     </form>";
+    $text .= "<p class='mt-3'>Already have an account? <a href='auth'>auth</a></p>";
 return $text;

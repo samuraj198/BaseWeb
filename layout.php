@@ -29,22 +29,12 @@
                     <a class="nav-link" href="/auth">Auth</a>
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <?php } ?>
                 <?php
-                if (!empty($_SESSION['auth'])) {?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/logout">Log out</a></li>
-                    </ul>
-                </li>
+                } else { ?>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link" href="/profile">Profile</a>
+                        <a class="nav-link text-danger" href="/logout">Log out</a>
+                    </li>
                 <?php }?>
             </ul>
         </div>
@@ -55,7 +45,4 @@
 </main>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </html>

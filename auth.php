@@ -35,4 +35,5 @@ $text .=
             unset($_SESSION['authError']);
         }
     $text .= "</form>";
+    $text .= "<p class='mt-3'>Don't have an account? <a href='register'>register</a></p>";
 return $text;
