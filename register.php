@@ -45,7 +45,8 @@ if (isset($_POST['login'])) {
         exit;
     }
 
-    $query = mysqli_query($link,"INSERT INTO `users` (`login`, `password`, `email`) VALUES ('$login', '$hash', '$email')");
+    $query = mysqli_query($link,"INSERT INTO `users` (`login`, `password`, `email`) VALUES 
+                                                                                    ('$login', '$hash', '$email')");
 
     $check = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE email = '$email'"));
 

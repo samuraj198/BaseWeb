@@ -8,7 +8,11 @@ if (isset($_POST['name'])) {
     $time = $_POST['time'];
     if (isset($time)) {
         $time_str = implode(', ', $time);
-        $query = mysqli_query($link, "INSERT INTO `problems`(`name`, `problem`, `sex`, `prefer_time`, `user_id`) VALUES ('$name','$problem','$sex','$time_str','$_SESSION[id]')");
+        $query = mysqli_query($link, "INSERT INTO `problems`(`name`, `problem`, `sex`, `prefer_time`, `user_id`) 
+                                                    VALUES ('$name','$problem','$sex','$time_str','$_SESSION[id]')");
+        $_SESSION['success'] = "You have successfully added a message!";
+        header('Location: /');
+        exit;
     } else {
         $_SESSION['timeError'] = "Select your preferred time to receive an answer";
         header('Location: /');
@@ -76,7 +80,8 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
                     </div>
                 </form>";
                     if (isset($_SESSION['success'])) {
-                        $text .= "<p class='text-success'>Your message sent successfully</p>";
+                        $text .= "<p class='text-success mt-3'>$_SESSION[success]</p>";
+                        unset($_SESSION['success']);
                     }
 } else {
     $text .= "<p class='text-center text-danger'>If you want to send a form, <a href='/auth'>auth</a></p>";
