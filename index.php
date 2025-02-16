@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 error_reporting(E_ALL);
@@ -8,9 +7,6 @@ mb_internal_encoding('UTF-8');
 
 $link = include 'db.php';
 
-if (isset($_SESSION['id'])) {
-    $user = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE id= '$_SESSION[id]'"));
-}
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 mb_internal_encoding('UTF-8');
@@ -44,6 +40,12 @@ if ($url === '/logout') {
     $page = require 'logout.php';
 
     $layout = str_replace("{{ title }}", 'Log out', $layout);
+}
+
+if ($url === '/profile') {
+    $page = require 'profile.php';
+
+    $layout = str_replace("{{ title }}", 'Profile', $layout);
 }
 
 if (!isset($page)) {

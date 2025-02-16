@@ -3,7 +3,11 @@ if (isset($_POST['email'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $user = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM users WHERE email='$email'"));
+    $query = $link->prepare( "SELECT * FROM `users` WHERE email = ?");
+    $query->execute([$email]);
+    $result = $query->get_result();
+    $user = $result->fetch_assoc();
+
     if (isset($user) && password_verify($password, $user['password'])) {
         $_SESSION['id'] = $user['id'];
         $_SESSION['auth'] = true;

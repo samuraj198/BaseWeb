@@ -1,8 +1,10 @@
 <?php
-
 $link = include 'db.php';
 
-$users = mysqli_fetch_all(mysqli_query($link, "SELECT * FROM `users`"), MYSQLI_ASSOC);
+$query = $link->prepare("SELECT * FROM `users`");
+$query->execute();
+$result = $query->get_result();
+$users = $result->fetch_all(MYSQLI_ASSOC);
 
 if (isset($_POST['login'])) {
     $login = $_POST['login'];
@@ -18,16 +20,20 @@ if (isset($_POST['login'])) {
         array_push($errors, $_SESSION['loginError']);
     }
 
-    $query = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM `users` WHERE login = '$login'"));
-    if (isset($query)) {
-        $_SESSION['loginError'] = "Login already exists";
-        array_push($errors, $_SESSION['loginError']);
-    }
+    $query = $link->prepare("SELECT * FROM `users` WHERE login = ? OR email = ?");
+    $query->execute([$login, $email]);
+    $result = $query->get_result();
+    $check = $result->fetch_assoc();
 
-    $query = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE email = '$email'"));
-    if (isset($query)) {
-        $_SESSION['emailError'] = "This email is already registered";
-        array_push($errors, $_SESSION['emailError']);
+    if ($check) {
+        if ($check['login'] == $login) {
+            $_SESSION['loginError'] = "Login already exists";
+            array_push($errors, $_SESSION['loginError']);
+        }
+        if ($check['email'] == $email) {
+            $_SESSION['emailError'] = "This email is already registered";
+            array_push($errors, $_SESSION['emailError']);
+        }
     }
 
     if (strlen($password) < 5) {
@@ -45,10 +51,15 @@ if (isset($_POST['login'])) {
         exit;
     }
 
-    $query = mysqli_query($link,"INSERT INTO `users` (`login`, `password`, `email`) VALUES 
-                                                                                    ('$login', '$hash', '$email')");
+    $query = $link->prepare("INSERT INTO `users` (`login`, `password`, `email`) VALUES 
+                                                                                    (?, ?, ?)");
+    $query->execute([$login, $hash, $email]);
+    $query->close();
 
-    $check = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM `users` WHERE email = '$email'"));
+    $query = $link->prepare("SELECT * FROM `users` WHERE email = ?");
+    $query->execute([$email]);
+    $result = $query->get_result();
+    $check = $result->fetch_assoc();
 
     $_SESSION['id'] = $check['id'];
     $_SESSION['auth'] = true;

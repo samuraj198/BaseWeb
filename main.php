@@ -1,15 +1,16 @@
 <?php
-
 if (isset($_POST['name'])) {
     $name = $_POST['name'];
     $sex = $_POST['sex'];
     $problem = $_POST['problem'];
     $priority = $_POST['priority'];
     $time = $_POST['time'];
-    if (isset($time)) {
+    if ($time) {
         $time_str = implode(', ', $time);
-        $query = mysqli_query($link, "INSERT INTO `problems`(`name`, `problem`, `sex`, `prefer_time`, `user_id`) 
-                                                    VALUES ('$name','$problem','$sex','$time_str','$_SESSION[id]')");
+        $query = $link->prepare("INSERT INTO `problems`(`name`, `problem`, `sex`, `prefer_time`, `user_id`) 
+                                                    VALUES (?, ?, ?, ?, ?)");
+        $query->execute([$name,$problem,$sex,$time_str,$_SESSION['id']]);
+        $query->close();
         $_SESSION['success'] = "You have successfully added a message!";
         header('Location: /');
         exit;
