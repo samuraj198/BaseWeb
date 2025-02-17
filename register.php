@@ -1,6 +1,4 @@
 <?php
-$link = include 'db.php';
-
 $query = $link->prepare("SELECT * FROM `users`");
 $query->execute();
 $result = $query->get_result();
@@ -72,7 +70,8 @@ $text = "<h2 class='text-center p-5'>Register page</h2>";
 $text .=
     "<form method='POST' action='' class='w-100 d-flex flex-column align-items-center'>
         <div class='form-floating mb-3 w-25'>
-            <input required name='login' type='text' class='form-control' id='floatingLogin' placeholder='Daniil/samuraj198'>
+            <input required name='login' type='text' class='form-control' id='floatingLogin' 
+            placeholder='Daniil/samuraj198'>
             <label for='floatingLogin'>Login</label>";
             if (isset($_SESSION['loginError'])) {
                 $text .= "<p class='text-danger mt-1' id='loginError'>$_SESSION[loginError]</p>";
@@ -80,7 +79,8 @@ $text .=
             }
         $text .= "</div>
         <div class='form-floating mb-3 w-25'>
-            <input required name='email' type='email' class='form-control' id='floatingInput' placeholder='name@example.com'>
+            <input required name='email' type='email' class='form-control' id='floatingInput' 
+            placeholder='name@example.com'>
             <label for='floatingInput'>Email address</label>";
             if (isset($_SESSION['emailError'])) {
                 $text .= "<p class='text-danger mt-1' id='emailError'>$_SESSION[emailError]</p>";
@@ -88,7 +88,8 @@ $text .=
             }
         $text .= "</div>
         <div class='form-floating mb-3 w-25'>
-            <input required name='password' type='password' class='form-control' id='floatingPassword' placeholder='Password'>
+            <input required name='password' type='password' class='form-control' id='floatingPassword' 
+            placeholder='Password'>
             <label for='floatingPassword'>Password</label>";
             if (isset($_SESSION['passwordError'])) {
                 $text .= "<p class='text-danger mt-1' id='passwordError'>$_SESSION[passwordError]</p>";
@@ -96,7 +97,8 @@ $text .=
             }
         $text .= "</div>
         <div class='form-floating mb-3 w-25'>
-            <input required name='password_confirmation' type='password' class='form-control' id='floatingPasswordConf' placeholder='Password confirmation'>
+            <input required name='password_confirmation' type='password' class='form-control' id='floatingPasswordConf' 
+            placeholder='Password confirmation'>
             <label for='floatingPassword'>Password confirmation</label>";
             if (isset($_SESSION['passwordConfError'])) {
                 $text .= "<p class='text-danger mt-1' id='passwordConfError'>$_SESSION[passwordConfError]</p>";

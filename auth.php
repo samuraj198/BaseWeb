@@ -24,11 +24,13 @@ $text = "<h2 class='text-center p-5'>Auth page</h2>";
 $text .=
     "<form method='POST' action='' class='w-100 d-flex flex-column align-items-center'>
         <div class='form-floating mb-3 w-25'>
-            <input required name='email' type='email' class='form-control' id='floatingInput' placeholder='name@example.com'>
+            <input required name='email' type='email' class='form-control' 
+            id='floatingInput' placeholder='name@example.com'>
             <label for='floatingInput'>Email address</label>
         </div>
         <div class='form-floating mb-3 w-25'>
-            <input required name='password' type='password' class='form-control' id='floatingPassword' placeholder='Password'>
+            <input required name='password' type='password' class='form-control' 
+            id='floatingPassword' placeholder='Password'>
             <label for='floatingPassword'>Password</label>
         </div>
         <div class=''>
